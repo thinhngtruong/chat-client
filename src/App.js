@@ -96,7 +96,7 @@ export default class App extends React.Component {
 //                     type="success"
 //                     onConfirm={() => this.setState({ showAlert: false })}
 //                 />
-//             </div>
+         </div>
         )
     }
 }
