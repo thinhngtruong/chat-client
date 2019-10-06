@@ -53,9 +53,9 @@ export default class App extends React.Component {
     //login để định danh người dùng
     login() {
         this.socket.emit("login", this.refs.name.value);
-//         this.setState({
-//             showAlert: true
-//         })
+        this.setState({
+            showAlert: true
+        })
     }
 
     render() {
@@ -89,13 +89,13 @@ export default class App extends React.Component {
                         </div>
                     }
                 </div>
-                {/*<SweetAlert
+                <SweetAlert
                     show={this.state.showAlert}
                     title="Thông báo"
                     text="Đăng nhập thành công!"
                     type="success"
                     onConfirm={() => this.setState({ showAlert: false })}
-                />*/}
+                />
          </div>
         )
     }
