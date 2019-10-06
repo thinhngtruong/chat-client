@@ -89,13 +89,13 @@ export default class App extends React.Component {
                         </div>
                     }
                 </div>
-//                 <SweetAlert
-//                     show={this.state.showAlert}
-//                     title="Thông báo"
-//                     text="Đăng nhập thành công!"
-//                     type="success"
-//                     onConfirm={() => this.setState({ showAlert: false })}
-//                 />
+                {/*<SweetAlert
+                    show={this.state.showAlert}
+                    title="Thông báo"
+                    text="Đăng nhập thành công!"
+                    type="success"
+                    onConfirm={() => this.setState({ showAlert: false })}
+                />*/}
          </div>
         )
     }
