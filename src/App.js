@@ -16,7 +16,8 @@ export default class App extends React.Component {
             messages: [], // danh sách tin nhắn
             user: { id: '', name: '' },// người dùng hiện tại, nếu rỗng sẽ hiển thị form login, có sẽ hiển thị phòng chat
             userOnline: [], // danh sách người dùng đang online
-            showAlert: false
+            showAlert: false,
+            typingMessage: ''
         }
         this.socket = null;
     }
@@ -24,6 +25,8 @@ export default class App extends React.Component {
     UNSAFE_componentWillMount() {
         this.socket = io('localhost:4000');
         this.socket.on('newMessage', (response) => { this.newMessage(response) }); //lắng nghe khi có tin nhắn mới
+        this.socket.on('dangnhap', (response) => { this.setState({typingMessage: response})});
+        this.socket.on('dungnhap', (response) => { this.setState({typingMessage: response})});
         this.socket.on('loginFail', (response) => { alert('Tên đã có người sử dụng') }); //login fail
         this.socket.on('loginSuccess', (response) => { this.setState({ user: { id: this.socket.id, name: response } }) }); //đăng nhập thành công 
         this.socket.on('updateUserList', (response) => { this.setState({ userOnline: response }) }); //update lại danh sách người dùng online khi có người đăng nhập hoặc đăng xuất
@@ -72,14 +75,14 @@ export default class App extends React.Component {
                                 <div className="online-list">
                                     <p className="status">Đang Online: </p>
                                     {this.state.userOnline.map(item =>
-                                        <li key={item.id}><span>{item.name}</span></li>
+                                        <li className="onlUser" key={item.id}><span>{item.name}</span></li>
                                     )}
                                 </div>
                             </div>
                             {/* danh sách message */}
                             <div className="content">
-                                <Messages user={this.state.user} messages={this.state.messages} />
-                                <Input sendMessage={this.sendnewMessage.bind(this)} />
+                                <Messages user={this.state.user} messages={this.state.messages} typingMessage={this.state.typingMessage}/>
+                                <Input sendMessage={this.sendnewMessage.bind(this)} user={this.state.user.name}/>
                             </div>
                         </div>
                         :

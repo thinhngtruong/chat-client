@@ -2,6 +2,7 @@ import React from 'react';
 import SweetAlert from 'sweetalert-react';
 import './sweetalert.css'
 import './App.css'
+import io from 'socket.io-client';
 
 export default class Input extends React.Component {
   constructor(props) {
@@ -9,8 +10,12 @@ export default class Input extends React.Component {
     this.state = {
       message: '',
     }
+    this.socket = null;
   }
 
+  UNSAFE_componentWillMount() {
+    this.socket = io('localhost:4000');
+  }
 
   checkEnter(e) {
     let { message } = this.state
@@ -25,6 +30,7 @@ export default class Input extends React.Component {
         this.setState({
           message: ''
         })
+        this.socket.emit("stop-typing");
       }
     }
   }
@@ -40,6 +46,7 @@ export default class Input extends React.Component {
       this.setState({
         message: ''
       })
+      this.socket.emit("stop-typing");
     }
   }
 
@@ -47,6 +54,12 @@ export default class Input extends React.Component {
     let target = e.target
     let name = target.name
     let value = target.value
+    if (value !== '') {
+      this.socket.emit("typing", {user: this.props.user });
+    }
+    else{
+      this.socket.emit("stop-typing");
+    }
     this.setState({
       [name]: value
     })
