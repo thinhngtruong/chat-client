@@ -14,7 +14,7 @@ export default class Input extends React.Component {
   }
 
   UNSAFE_componentWillMount() {
-    this.socket = io('localhost:4000');
+    this.socket = io('https://chat-server-2019.herokuapp.com/');
   }
 
   checkEnter(e) {
