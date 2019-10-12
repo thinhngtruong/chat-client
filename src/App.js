@@ -24,7 +24,7 @@ export default class App extends React.Component {
     }
     //Connetct với server nodejs, thông qua socket.io
     UNSAFE_componentWillMount() {
-        this.socket = io('localhost:4000');
+        this.socket = io('https://chat-server-2019.herokuapp.com');
         this.socket.on('newMessage', (response) => { this.newMessage(response) }); //lắng nghe khi có tin nhắn mới
         this.socket.on('dangnhap', (response) => { this.setState({ typingMessage: response }) });
         this.socket.on('dungnhap', (response) => { this.setState({ typingMessage: response }) });
