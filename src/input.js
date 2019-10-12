@@ -78,6 +78,7 @@ export default class Input extends React.Component {
               type="text"
               className="message_input"
               placeholder="Nhập nội dung tin nhắn"
+              autoFocus={true}
               onKeyUp={this.checkEnter.bind(this)} />
           </div>
           <div className="send_message" onClick={() => this.onClick()} ref="inputMessage" >
