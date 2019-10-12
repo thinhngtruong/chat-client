@@ -82,7 +82,7 @@ export default class App extends React.Component {
                             {/* danh sách message */}
                             <div className="content">
                                 <Messages user={this.state.user} messages={this.state.messages} typingMessage={this.state.typingMessage}/>
-                                <Input sendMessage={this.sendnewMessage.bind(this)} user={this.state.user.name}/>
+                                <Input sendMessage={this.sendnewMessage.bind(this)}/>
                             </div>
                         </div>
                         :
