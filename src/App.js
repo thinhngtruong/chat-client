@@ -85,8 +85,10 @@ export default class App extends React.Component {
                             {/* danh sách user online */}
                             <div className="menu">
                                 <div className="user-name">Username: {this.state.user.name}</div>
+                                <div className="btnCenter">
                                 <input className="logoutButton" type="button" name="" value="Đăng xuất" onClick={() => this.onLogOut()} />
-                                <div className="online-list">
+                                </div>
+                                    <div className="online-list">
                                     <p className="status">Đang Online: </p>
                                     {this.state.userOnline.map(item =>
                                         <li className="onlUser" key={item.id}><span>{item.name}</span></li>
