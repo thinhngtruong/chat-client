@@ -352,6 +352,8 @@ input[type=button]:active, input[type=submit]:active, input[type=reset]:active  
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 .inputUsername {
