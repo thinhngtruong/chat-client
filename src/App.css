@@ -348,6 +348,12 @@ input[type=button]:active, input[type=submit]:active, input[type=reset]:active  
   text-align: center;
 }
 
+.btnCenter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .inputUsername {
   background-color: #f6f6f6;
   border: none;
