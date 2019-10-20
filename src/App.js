@@ -15,7 +15,7 @@ const App = () => {
     const [userOnline, setUserOnlineValue] = useState([]);
     const [showAlert, setShowAlertValue] = useState(false);
     const [typingMessage, setTypingMessageValue] = useState('');
-    const socket = io('localhost:4000');
+    const socket = io('https://chat-server-2019.herokuapp.com');
     let name = useRef();
 
     //Connetct với server nodejs, thông qua socket.io
