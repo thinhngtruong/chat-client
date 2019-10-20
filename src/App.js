@@ -18,8 +18,22 @@ const App = () => {
     const socket = io('https://chat-server-2019.herokuapp.com');
     let name = useRef();
 
-    //Connetct với server nodejs, thông qua socket.io
-    useEffect(() => {
+        //Connetct với server nodejs, thông qua socket.io
+        useEffect(() => {
+            //Khi có tin nhắn mới, sẽ push tin nhắn vào state mesgages, và nó sẽ được render ra màn hình
+            function newMessage(m) {
+                let ids = _map(messages, 'id');
+                let max = Math.max(...ids);
+                messages.push({
+                    id: max + 1,
+                    userId: m.user.id,
+                    message: m.data,
+                    userName: m.user.name
+                });
+                let objMessage = $('.messages');
+                setMessagesValue(messages);
+                objMessage.animate({ scrollTop: objMessage.prop('scrollHeight') }, 300); //tạo hiệu ứng cuộn khi có tin nhắn mới
+            }
         socket.on('newMessage', (response) => { newMessage(response) }); //lắng nghe khi có tin nhắn mới
         socket.on('dangnhap', (response) => { setTypingMessageValue(response) });
         socket.on('dungnhap', (response) => { setTypingMessageValue(response) });
@@ -30,21 +44,6 @@ const App = () => {
         }); //đăng nhập thành công 
         socket.on('updateUserList', (response) => { setUserOnlineValue(response) }); //update lại danh sách người dùng online khi có người đăng nhập hoặc đăng xuất
     }, [])
-
-    //Khi có tin nhắn mới, sẽ push tin nhắn vào state mesgages, và nó sẽ được render ra màn hình
-    function newMessage(m) {
-        let ids = _map(messages, 'id');
-        let max = Math.max(...ids);
-        messages.push({
-            id: max + 1,
-            userId: m.user.id,
-            message: m.data,
-            userName: m.user.name
-        });
-        let objMessage = $('.messages');
-        setMessagesValue(messages);
-        objMessage.animate({ scrollTop: objMessage.prop('scrollHeight') }, 300); //tạo hiệu ứng cuộn khi có tin nhắn mới
-    }
 
     //Gửi event socket newMessage với dữ liệu là nội dung tin nhắn
     const sendnewMessage = (m) => {
