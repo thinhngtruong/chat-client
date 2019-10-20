@@ -10,7 +10,7 @@ const Input = (props) => {
   const [socket, setSocket] = useState(null);
 
   useEffect(() => {
-    setSocket(io('localhost:4000'));
+    setSocket(io('https://chat-server-2019.herokuapp.com'));
   }, []);
 
   const checkEnter = (e) => {
