@@ -1,99 +1,79 @@
-import React from 'react';
+import React, { useState, useEffect } from "react";
 import SweetAlert from 'sweetalert-react';
 import './sweetalert.css'
 import './App.css'
 import io from 'socket.io-client';
 
-export default class Input extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      message: '',
-    }
-    this.socket = null;
-  }
+const Input = (props) => {
+  const [message, setMessageValue] = useState("");
+  const [showAlert, setShowAlert] = useState(false);
+  const [socket, setSocket] = useState(null);
 
-  UNSAFE_componentWillMount() {
-    this.socket = io('https://chat-server-2019.herokuapp.com/');
-  }
+  useEffect(() => {
+    setSocket(io('localhost:4000'));
+  }, []);
 
-  checkEnter(e) {
-    let { message } = this.state
+  const checkEnter = (e) => {
     if (e.keyCode === 13) {
       if (message === '') {
-        this.setState({
-          showAlert: true
-        })
+        setShowAlert(true)
       }
       else {
-        this.props.sendMessage(message);
-        this.setState({
-          message: ''
-        })
-        this.socket.emit("stop-typing");
+        props.sendMessage(message);
+        setMessageValue('');
+        socket.emit("stop-typing");
       }
     }
   }
 
-  onClick = () => {
-    let { message } = this.state
+  const onClick = () => {
     if (message === '') {
-      this.setState({
-        showAlert: true
-      })
+      setShowAlert(true)
     } else {
-      this.props.sendMessage(message)
-      this.setState({
-        message: ''
-      })
-      this.socket.emit("stop-typing");
+      props.sendMessage(message)
+      setMessageValue('');
+      socket.emit("stop-typing");
     }
   }
 
-  onChange = (e) => {
-    let target = e.target
-    let name = target.name
-    let value = target.value
+  const onChange = (e) => {
+    let value = e.target.value
     if (value !== '') {
-      this.socket.emit("typing", {user: this.props.user });
+      socket.emit("typing", { user: props.user });
     }
-    else{
-      this.socket.emit("stop-typing");
+    else {
+      socket.emit("stop-typing");
     }
-    this.setState({
-      [name]: value
-    })
+    setMessageValue(value)
   }
 
-  render() {
-    let { message } = this.state
-    return (
-      <div>
-        <div className="bottom_wrapper">
-          <div className="message_input_wrapper">
-            <input
-              name="message"
-              value={message}
-              onChange={this.onChange}
-              type="text"
-              className="message_input"
-              placeholder="Nhập nội dung tin nhắn"
-              autoFocus={true}
-              onKeyUp={this.checkEnter.bind(this)} />
-          </div>
-          <div className="send_message" onClick={() => this.onClick()} ref="inputMessage" >
-            <div className='icon'></div>
-            <div className='text'>Gửi</div>
-          </div>
+  return (
+    <div>
+      <div className="bottom_wrapper">
+        <div className="message_input_wrapper">
+          <input
+            value={message}
+            onChange={onChange}
+            type="text"
+            className="message_input"
+            placeholder="Nhập nội dung tin nhắn"
+            autoFocus={true}
+            onKeyUp={checkEnter} />
         </div>
-        <SweetAlert
-          show={this.state.showAlert}
-          title="Thông báo"
-          text="Nội dung tin nhắn không được trống!"
-          type="warning"
-          onConfirm={() => this.setState({ showAlert: false })}
-        />
+        <div className="send_message" onClick={onClick}>
+          <div className='icon'></div>
+          <div className='text'>Gửi</div>
+        </div>
       </div>
-    )
-  }
+      <SweetAlert
+        show={showAlert}
+        title="Thông báo"
+        text="Nội dung tin nhắn không được trống!"
+        type="warning"
+        onConfirm={() => setShowAlert(false)}
+      />
+    </div>
+  )
 }
+
+export default Input

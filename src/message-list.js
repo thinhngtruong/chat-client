@@ -5,11 +5,11 @@ import $ from 'jquery'
 import './App.css'
 
 
-export default class Messages extends React.Component {
-    displayMessage = () => {
-        let { typingMessage } = this.props
+const Messages = (props) => {
+    let { typingMessage, messages } = props
+    function displayMessage(){
         if (typingMessage === '') {
-            return(
+            return (
                 null
             )
         }
@@ -18,21 +18,20 @@ export default class Messages extends React.Component {
             objMessage.animate({ scrollTop: objMessage.prop('scrollHeight') }, 300);
             return (
                 <div>
-                    <img src={typing} className="typing" alt="typing" />  
+                    <img src={typing} className="typing" alt="typing" />
                     <span className="typing-message"> &nbsp;{typingMessage}</span>
                 </div>
             )
         }
     }
-    render() {
-        let { messages } = this.props;
-        return (
-            <ul className="messages clo-md-5">
-                {messages.map((item, index) =>
-                    <Item key={index} user={item.userId === this.props.user.id ? true : false} message={item} />
-                )}
-                {this.displayMessage()}
-            </ul>
-        )
-    }
+    return (
+        <ul className="messages clo-md-5">
+            {messages.map((item, index) =>
+                <Item key={index} user={item.userId === props.user.id ? true : false} message={item} />
+            )}
+            {displayMessage()}
+        </ul>
+    )
 }
+
+export default Messages
