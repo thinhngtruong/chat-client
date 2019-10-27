@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import SweetAlert from 'sweetalert-react';
 import './sweetalert.css'
 import './App.css'
@@ -7,11 +7,7 @@ import io from 'socket.io-client';
 const Input = (props) => {
   const [message, setMessageValue] = useState("");
   const [showAlert, setShowAlert] = useState(false);
-  const [socket, setSocket] = useState(null);
-
-  useEffect(() => {
-    setSocket(io('https://chat-server-2019.herokuapp.com'));
-  }, []);
+  const socket = io('localhost:4000')
 
   const checkEnter = (e) => {
     if (e.keyCode === 13) {
