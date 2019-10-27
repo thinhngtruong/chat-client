@@ -71,7 +71,11 @@ export default class App extends React.Component {
                 id: '',
                 name: ''
             }
+<<<<<<< HEAD
         })
+=======
+        }) 
+>>>>>>> de13dba5aa0347b8e615fc43246543ac682e9a31
     }
 
     render() {
@@ -106,7 +110,11 @@ export default class App extends React.Component {
                             <div id="formContent">
                                 <img src={avatar} alt="user" />
                                 <h1>Nhập tên hiển thị</h1>
+<<<<<<< HEAD
                                 <input autoFocus={true} type="text" id="login" className="fadeIn first inputUsername" name="name" ref="name" />
+=======
+                                <input autoFocus={true} type="text" id="login" className="fadeIn first inputUsername" name="name" ref="name"/>
+>>>>>>> de13dba5aa0347b8e615fc43246543ac682e9a31
                                 <input type="button" className="fadeIn second loginButton" name="" value="Đăng nhập" onClick={this.login.bind(this)} />
                             </div>
                         </div>
@@ -122,4 +130,8 @@ export default class App extends React.Component {
             </div>
         )
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> de13dba5aa0347b8e615fc43246543ac682e9a31
