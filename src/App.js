@@ -83,14 +83,16 @@ export default class App extends React.Component {
                     {this.state.user.id && this.state.user.name ?
                         <div className="chat_window">
                             {/* danh sách user online */}
-                            <div className="menu">
-                                <div className="user-name">Username: {this.state.user.name}</div>
-                                <input className="logoutButton" type="button" name="" value="Đăng xuất" onClick={() => this.onLogOut()} />
+                           <div className="menu">
+                                <div className="user-name">Username: {user.name}</div>
+                                <div className="btnCenter">
+                                    <input className="logoutButton" type="button" name="" value="Đăng xuất" onClick={onLogOut} />
+                                </div>
                                 <div className="online-list">
                                     <p className="status">Đang Online: </p>
-                                    {this.state.userOnline.map(item =>
-                                        <li className="onlUser" key={item.id}><span>{item.name}</span></li>
-                                    )}
+                                        {userOnline.map(item =>
+                                    <li className="onlUser" key={item.id}><span>{item.name}</span></li>
+                                )}
                                 </div>
                             </div>
                             {/* danh sách message */}
