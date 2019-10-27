@@ -7,7 +7,7 @@ import io from 'socket.io-client';
 const Input = (props) => {
   const [message, setMessageValue] = useState("");
   const [showAlert, setShowAlert] = useState(false);
-  const socket = io('localhost:4000')
+  const socket = io('https://chat-server-2019.herokuapp.com/')
 
   const checkEnter = (e) => {
     if (e.keyCode === 13) {
