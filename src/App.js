@@ -71,11 +71,7 @@ export default class App extends React.Component {
                 id: '',
                 name: ''
             }
-<<<<<<< HEAD
-        })
-=======
         }) 
->>>>>>> de13dba5aa0347b8e615fc43246543ac682e9a31
     }
 
     render() {
